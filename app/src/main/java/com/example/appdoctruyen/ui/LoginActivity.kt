@@ -8,6 +8,7 @@ import com.example.appdoctruyen.databinding.ActivityLoginBinding
 import com.example.appdoctruyen.model.User
 import com.example.appdoctruyen.model.UserRole
 import com.example.appdoctruyen.ui.admin.AdminHomeActivity
+import com.example.appdoctruyen.ui.user.home.HomeActivity
 import com.example.appdoctruyen.util.CollectionName
 import com.example.appdoctruyen.util.destroyLoadingDialog
 import com.example.appdoctruyen.util.hiddenLoading
@@ -65,6 +66,11 @@ class LoginActivity : AppCompatActivity() {
                                         val role = user.role
                                         if (role == UserRole.Admin.role) {
                                             val intent = Intent(this, AdminHomeActivity::class.java)
+                                            startActivity(intent)
+                                            finish()
+                                        }
+                                        if (role == UserRole.User.role) {
+                                            val intent = Intent(this, HomeActivity::class.java)
                                             startActivity(intent)
                                             finish()
                                         }

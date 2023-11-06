@@ -18,7 +18,7 @@ class AllComicAdapter(
     val onClickEdit: (Comic) -> Unit,
     val onClickDelete: (Comic) -> Unit,
 ) :
-    ListAdapter<Comic, AllComicAdapter.ComicViewHolder>(CategoryDiffUtil) {
+    ListAdapter<Comic, AllComicAdapter.ComicViewHolder>(ComicDiffUtil) {
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -66,7 +66,7 @@ class AllComicAdapter(
     }
 }
 
-object CategoryDiffUtil : DiffUtil.ItemCallback<Comic>() {
+object ComicDiffUtil : DiffUtil.ItemCallback<Comic>() {
     override fun areItemsTheSame(oldItem: Comic, newItem: Comic): Boolean {
         return oldItem.id == newItem.id
     }

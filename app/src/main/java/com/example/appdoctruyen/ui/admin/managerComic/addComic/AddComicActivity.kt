@@ -71,7 +71,7 @@ class AddComicActivity : AppCompatActivity() {
             comicUpload = Comic(
                 id = comicUpload?.id ?: "",
                 name = name,
-                createAt = comicUpload?.createAt ?: System.currentTimeMillis().toString(),
+                createAt = comicUpload?.createAt ?: System.currentTimeMillis(),
                 status = status,
                 categoryId = categoryId,
                 introduce = introduce,
@@ -245,7 +245,7 @@ class AddComicActivity : AppCompatActivity() {
                         binding.spinner.setSelection(0)
                     } else {
                         var index = 0
-                        for (i in 0..categoryList.size) {
+                        for (i in 0 until  categoryList.size) {
                             if (categoryList[i].id == (comicUpload?.categoryId ?: "")) {
                                 index = i
                                 break

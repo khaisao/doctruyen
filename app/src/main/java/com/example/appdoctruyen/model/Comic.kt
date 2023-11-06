@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Comic(
     var id: String = "",
     val name: String = "",
-    val createAt: String = "",
+    val createAt: Long = 0,
     val status: Int = ComicStatus.NOT_SET.status,
     val categoryId: String = "",
     val introduce: String = "",

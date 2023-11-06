@@ -12,5 +12,6 @@ class CollectionName {
 class StorageRef{
     companion object{
         const val COMIC_THUMBNAIL = "comicThumbnail"
+        const val CHAP_IMAGE = "chapImage"
     }
 }

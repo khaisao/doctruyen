@@ -1,24 +1,23 @@
-package com.example.appdoctruyen.ui.admin.managerChap.allChap
+package com.example.appdoctruyen.ui.user.comicInfo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appdoctruyen.databinding.ItemCategoryBinding
+import com.example.appdoctruyen.databinding.ItemChapDetailBinding
 import com.example.appdoctruyen.model.Chap
 
-class AllChapAdapter(
-    val onClickEdit: (Chap) -> Unit,
-    val onClickDelete: (Chap) -> Unit,
+class UserAllChapAdapter(
+    val onItemClick: (Chap) -> Unit
 ) :
-    ListAdapter<Chap, AllChapAdapter.AllChapViewHolder>(ChapDiffUtil) {
+    ListAdapter<Chap, UserAllChapAdapter.AllChapViewHolder>(ChapDiffUtil) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ) = AllChapViewHolder(
-        ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemChapDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
 
@@ -27,14 +26,16 @@ class AllChapAdapter(
     }
 
     inner class AllChapViewHolder(
-        private val binding: ItemCategoryBinding,
+        private val binding: ItemChapDetailBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindData(
             item: Chap
         ) {
-
-
+            binding.tvChapName.text = item.name
+            binding.root.setOnClickListener {
+                onItemClick.invoke(item)
+            }
         }
     }
 }

@@ -36,14 +36,21 @@ class AddChapAdapter(
         fun bindData(
             item: String
         ) {
-            Glide.with(binding.root.context).load(item.toUri()).into(binding.imageChap)
+            Log.d("asgawgwagawg", "bindData: $item")
+            Glide.with(binding.root.context).load(item).into(binding.imageChap)
+            binding.buttonXoa.setOnClickListener {
+                onClickDelete.invoke(item)
+            }
+            binding.buttonSua.setOnClickListener {
+                onClickEdit.invoke(item)
+            }
         }
     }
 }
 
 object ChapImageDiffUtil : DiffUtil.ItemCallback<String>() {
     override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-        return false
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {

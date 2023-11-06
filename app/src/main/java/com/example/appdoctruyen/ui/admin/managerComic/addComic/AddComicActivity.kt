@@ -245,7 +245,7 @@ class AddComicActivity : AppCompatActivity() {
                         binding.spinner.setSelection(0)
                     } else {
                         var index = 0
-                        for (i in 0 until  categoryList.size) {
+                        for (i in 0 until categoryList.size) {
                             if (categoryList[i].id == (comicUpload?.categoryId ?: "")) {
                                 index = i
                                 break

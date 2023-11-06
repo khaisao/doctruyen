@@ -50,6 +50,7 @@ class HomeActivity : AppCompatActivity() {
         binding.rvCategory.adapter = adapterCategory
         getAllComic()
         getAllCategory()
+        //Tìm kiếm
         binding.timkiem.doOnTextChanged { text, start, before, count ->
             if (text.isNullOrBlank()) {
                 adapterComic.submitList(originList)
@@ -65,6 +66,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setOnClick() {
     }
 
+    //Lấy tất cả truyện và hiện lên recycle view
     private fun getAllComic() {
         showLoading()
         db.collection(CollectionName.COMIC)
@@ -86,6 +88,7 @@ class HomeActivity : AppCompatActivity() {
             }
     }
 
+    //Lấy tât cả thể loại và hiện lên recycle view
     private fun getAllCategory() {
         showLoading()
         db.collection(CollectionName.CATEGORY)

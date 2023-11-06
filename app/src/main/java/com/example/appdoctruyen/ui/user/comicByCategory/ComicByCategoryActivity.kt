@@ -57,6 +57,7 @@ class ComicByCategoryActivity : AppCompatActivity() {
         destroyLoadingDialog()
     }
 
+    //Lấy tất cả truyện theo thể loại
     private fun getAllComic() {
         showLoading()
         db.collection(CollectionName.COMIC).whereEqualTo("categoryId", category?.id).get()

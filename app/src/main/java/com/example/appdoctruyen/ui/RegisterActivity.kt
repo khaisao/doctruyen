@@ -39,24 +39,26 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-
+    //Đăng ký vào firebase auth
     private fun registerUser(userName: String?, email: String?, password: String?) {
         if (userName.isNullOrBlank()) {
-            toastMessage("Empty username")
+            toastMessage("Username rỗng")
             return
         }
         if (email.isNullOrBlank()) {
-            toastMessage("Empty email")
+            toastMessage("Email rỗng")
             return
         }
         if (password.isNullOrBlank()) {
-            toastMessage("Empty password")
+            toastMessage("Password rỗng")
             return
         }
         showLoading()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+
+                    //Set tên cho tài khoản
                     val userProfileChangeRequest = UserProfileChangeRequest.Builder()
                         .setDisplayName(userName)
                         .build()
@@ -66,16 +68,17 @@ class RegisterActivity : AppCompatActivity() {
 //                            Đăng ký với quyền Admin
 //                            saveUserToDb(userName, email, password, UserRole.Admin.role)
                         }?.addOnCanceledListener {
-                            toastMessage("Registration failed: ${task.exception?.message}")
+                            toastMessage("Lỗi: ${task.exception?.message}")
                             hiddenLoading()
                         }
                 } else {
-                    toastMessage("Registration failed: ${task.exception?.message}")
+                    toastMessage("Lỗi: ${task.exception?.message}")
                     hiddenLoading()
                 }
             }
     }
 
+    //Lưu tài khoản vào database
     private fun saveUserToDb(userName: String?, email: String?, password: String?, role: Int) {
         val userData = hashMapOf(
             "userName" to userName,
@@ -87,12 +90,12 @@ class RegisterActivity : AppCompatActivity() {
             db.collection(CollectionName.USER).document(it.uid)
                 .set(userData)
                 .addOnSuccessListener {
-                    toastMessage("Registration successful")
+                    toastMessage("Đăng ký thành công")
                     hiddenLoading()
                     finish()
                 }
                 .addOnFailureListener { e ->
-                    toastMessage("Registration failed: ${e.message}")
+                    toastMessage("Lỗi: ${e.message}")
                 }
         }
     }

@@ -77,6 +77,7 @@ class ComicInfoActivity : AppCompatActivity() {
         return sdf.format(date)
     }
 
+    //Lấy tất cả chap theo comicId (id của truyện), sau đó hiện lên recycle view
     private fun getAllChap() {
         db.collection(CollectionName.CHAP).whereEqualTo("comicId", comic?.id)
             .addSnapshotListener { value, error ->
@@ -96,6 +97,7 @@ class ComicInfoActivity : AppCompatActivity() {
             }
     }
 
+    // Lấy thể loại của truyện
     private fun getCategory() {
         db.collection(CollectionName.CATEGORY).document(comic?.categoryId ?: "")
             .get().addOnSuccessListener { document ->

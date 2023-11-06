@@ -42,16 +42,19 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    //Đăng nhập
     private fun login(email: String?, password: String?) {
+        //Nếu rỗng thì thông báo
         if (email.isNullOrBlank()) {
-            toastMessage("Empty email")
+            toastMessage("Email rỗnh")
             return
         }
         if (password.isNullOrBlank()) {
-            toastMessage("Empty password")
+            toastMessage("Password rỗng")
             return
         }
         showLoading()
+        // Dùng firebase auth để đăng nhập
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -64,11 +67,13 @@ class LoginActivity : AppCompatActivity() {
                                     val user = document.toObject(User::class.java)
                                     if (user != null) {
                                         val role = user.role
+                                        //Đăng nhập thành công, nếu quyền là Admin thì chuyển sang màn của Admin
                                         if (role == UserRole.Admin.role) {
                                             val intent = Intent(this, AdminHomeActivity::class.java)
                                             startActivity(intent)
                                             finish()
                                         }
+                                        //Đăng nhập thành công, nếu quyền là User thì chuyển sang màn của User
                                         if (role == UserRole.User.role) {
                                             val intent = Intent(this, HomeActivity::class.java)
                                             startActivity(intent)
@@ -77,25 +82,25 @@ class LoginActivity : AppCompatActivity() {
                                         hiddenLoading()
                                     }
                                 } else {
-                                    toastMessage("Account don't exit")
+                                    toastMessage("Tài khoản không tồn tại")
                                     hiddenLoading()
                                 }
                             }
                             .addOnFailureListener { e ->
-                                toastMessage("Login failed: ${e.message}")
+                                toastMessage("Lỗi: ${e.message}")
                                 hiddenLoading()
                             }
                     } else {
-                        toastMessage("Login failed")
+                        toastMessage("Lỗi")
                         hiddenLoading()
                     }
                 } else {
-                    toastMessage("Login failed: ${task.exception?.message}")
+                    toastMessage("Lỗi: ${task.exception?.message}")
                     hiddenLoading()
                 }
             }
             .addOnCanceledListener {
-                toastMessage("Login failed")
+                toastMessage("Lỗi")
                 hiddenLoading()
             }
     }

@@ -60,6 +60,7 @@ class DetailChapActivity : AppCompatActivity() {
         }
     }
 
+    //Lấy tất cả chap theo comicId (id của truyện), sau đó hiện lên recycle view
     private fun getAllChap() {
         showLoading()
         db.collection(CollectionName.CHAP).whereEqualTo("comicId", comicId).get()
@@ -84,6 +85,7 @@ class DetailChapActivity : AppCompatActivity() {
             }
     }
 
+    //Hiện hoặc ẩn button trước, sau tuỳ vào đang ở vị trí chap nào
     private fun setUpUiForButtonNextAndPrevious() {
         if (listChapSize == 1) {
             binding.buttonTruoc.isVisible = false

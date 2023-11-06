@@ -81,6 +81,7 @@ class AllChapActivity : AppCompatActivity() {
         builder.show()
     }
 
+    //Lấy tất cả chap của 1 truyện (comicId)
     private fun getAllChap() {
         db.collection(CollectionName.CHAP).whereEqualTo("comicId", comicId)
             .addSnapshotListener { value, error ->

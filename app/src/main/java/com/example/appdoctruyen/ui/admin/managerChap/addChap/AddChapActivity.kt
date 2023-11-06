@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appdoctruyen.databinding.ActivityAddChapBinding
 import com.example.appdoctruyen.databinding.DialogTlBinding
@@ -215,7 +213,8 @@ class AddChapActivity : AppCompatActivity() {
         }
     }
 
-    private fun isExitChapNam(
+    //Kiểm tra xem tên chap đã tồn tại chưa
+    private fun isExitChapName(
         chapName: String,
     ): Boolean {
         var isExit = false
@@ -230,6 +229,7 @@ class AddChapActivity : AppCompatActivity() {
         return isExit
     }
 
+    //Thêm chap vào database
     private fun addChapToDb(chapName: String) {
         val document = db.collection(CollectionName.CHAP).document()
         val chap = Chap(
@@ -251,6 +251,7 @@ class AddChapActivity : AppCompatActivity() {
             }
     }
 
+    //Sửa chap  truyện
     private fun editChapToDb(chap: Chap) {
         showLoading()
         val document = db.collection(CollectionName.CHAP).document(chap.id)
@@ -300,7 +301,7 @@ class AddChapActivity : AppCompatActivity() {
                 if (listUriImage.isEmpty()) {
                     toastMessage("Vui lòng thêm ảnh")
                 } else {
-                    if (!isExitChapNam(chapName)) {
+                    if (!isExitChapName(chapName)) {
                         for (item in listUriImage) {
                             if (!isFirebaseStorageUrl(item)) {
                                 uploadAndReplaceUrl(item, chapName)
@@ -316,6 +317,7 @@ class AddChapActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    //Kiểm tra xem đã có quyền đọc chưa
     private fun hasStoragePermissionImg(): Boolean {
         val read =
             ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -327,10 +329,12 @@ class AddChapActivity : AppCompatActivity() {
         destroyLoadingDialog()
     }
 
+    //Kiểm tra xem text có phải là đường link của firebase storage chưa
     private fun isFirebaseStorageUrl(url: String): Boolean {
         return url.contains("firebasestorage.googleapis.com")
     }
 
+    //Trả về true nếu tất cả string của 1 list toàn là link của firestorage
     private fun isAllFirebaseStorageUrl(listImage: List<String>): Boolean {
         var isAllValueFirebaseUrl = true
         for (item in listImage) {

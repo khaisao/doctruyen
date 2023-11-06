@@ -39,6 +39,7 @@ class AddComicActivity : AppCompatActivity() {
         setOnClick()
     }
 
+    //CHọn ảnh, nếu chọn thành công thì load vào imageViewAnh
     private val imageChooser =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
@@ -77,6 +78,7 @@ class AddComicActivity : AppCompatActivity() {
                 introduce = introduce,
                 thumbnailUrl = comicUpload?.thumbnailUrl ?: ""
             )
+            //Nếu thông tin đã hợp lệ thì lưu vào database
             if (isValidComic(comicUpload!!)) {
                 saveComicToDb(imageUri)
             } else {
@@ -85,6 +87,7 @@ class AddComicActivity : AppCompatActivity() {
         }
     }
 
+    //Lưu truyện vào database (lưu ảnh vào firestore, lưu thành công thì mới lưu tryêjn vào database)
     private fun saveComicToDb(uri: Uri?) {
         showLoading()
         if (!isEditComic) {
@@ -151,6 +154,7 @@ class AddComicActivity : AppCompatActivity() {
 
     }
 
+    //Lưu truyện vào database
     private fun addComicToDb(comicInput: Comic) {
         showLoading()
         val document = db.collection(CollectionName.COMIC).document()
@@ -167,6 +171,7 @@ class AddComicActivity : AppCompatActivity() {
             }
     }
 
+    //Sửa truyện
     private fun editComicToDb(comicInput: Comic) {
         showLoading()
         val document = db.collection(CollectionName.COMIC).document(comicInput.id)
@@ -182,6 +187,7 @@ class AddComicActivity : AppCompatActivity() {
             }
     }
 
+    //Kiểm tra xem đã nhập đầy đủ thông tin chưa
     private fun isValidComic(comic: Comic): Boolean {
         return comic.name.isNotEmpty() &&
                 comic.status != ComicStatus.NOT_SET.status &&
@@ -204,6 +210,7 @@ class AddComicActivity : AppCompatActivity() {
         getAllCategory()
     }
 
+    //Nếu ấn vào sửa truyện từ màn trường, thì sẽ setup UI
     private fun setUpUiForEditComic(comic: Comic) {
         binding.ten.text = "Sửa truyện tranh"
         binding.buttonThem.text = "Sửa"
@@ -224,6 +231,7 @@ class AddComicActivity : AppCompatActivity() {
             }
     }
 
+    //Lấy tất cả thể loại và hiển thị lên spinner
     private fun getAllCategory(): List<Category> {
         val categoryList = mutableListOf<Category>()
         showLoading()

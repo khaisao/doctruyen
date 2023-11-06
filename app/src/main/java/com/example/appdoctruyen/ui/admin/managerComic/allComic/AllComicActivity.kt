@@ -42,6 +42,7 @@ class AllComicActivity : AppCompatActivity() {
             onClickDelete = { showDialogDeleteComic(it) })
         binding.rvComic.adapter = adapter
         getAllComic()
+        //Tìm kiếm
         binding.timkiem.doOnTextChanged { text, start, before, count ->
             if (text.isNullOrBlank()) {
                 adapter.submitList(originList)
@@ -99,6 +100,7 @@ class AllComicActivity : AppCompatActivity() {
         }
     }
 
+    //Lấy dữ liệu tất cả truyện
     private fun getAllComic() {
         db.collection(CollectionName.COMIC)
             .addSnapshotListener { value, error ->
@@ -118,6 +120,7 @@ class AllComicActivity : AppCompatActivity() {
             }
     }
 
+    //Kiểm tra xem đã có quyền đọc chưa
     private fun hasStoragePermissionImg(): Boolean {
         val read =
             ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)

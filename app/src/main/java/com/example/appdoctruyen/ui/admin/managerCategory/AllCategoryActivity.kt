@@ -47,6 +47,9 @@ class AllCategoryActivity : AppCompatActivity() {
     }
 
     private fun setOnClick() {
+        binding.imgBack.setOnClickListener {
+            finish()
+        }
         binding.floatingAdd.setOnClickListener {
             showDialogAddCategory()
         }

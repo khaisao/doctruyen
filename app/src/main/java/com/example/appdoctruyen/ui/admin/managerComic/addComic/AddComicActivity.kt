@@ -118,6 +118,9 @@ class AddComicActivity : AppCompatActivity() {
                 }.addOnCanceledListener {
                     hiddenLoading()
                 }
+            } else {
+                hiddenLoading()
+                toastMessage("Vui lòng điền đủ thông tin")
             }
         } else {
             if (uri != null) {

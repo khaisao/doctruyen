@@ -11,13 +11,8 @@ fun Activity.toastMessage(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
-fun Activity.showLoading(){
-    val abc = LoadingDialog.getInstance(this)
-    if(abc != null){
-        abc.show()
-    } else{
-        toastMessage("Null r")
-    }
+fun Activity.showLoading() {
+    LoadingDialog.getInstance(this)?.show()
 }
 
 fun Activity.hiddenLoading(){

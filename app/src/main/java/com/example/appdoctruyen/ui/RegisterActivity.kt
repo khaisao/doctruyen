@@ -75,6 +75,9 @@ class RegisterActivity : AppCompatActivity() {
                     toastMessage("Lỗi: ${task.exception?.message}")
                     hiddenLoading()
                 }
+            }.addOnFailureListener {
+                toastMessage("Lỗi: ${it.message}")
+                hiddenLoading()
             }
     }
 
